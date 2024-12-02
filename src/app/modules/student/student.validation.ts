@@ -40,7 +40,7 @@ export const createStudentValidationSchema = z.object({
         student: z.object({
             name: userNameValidationSchema,
             gender: z.enum(["male", "female", "other"]),
-            dateOfBirth: z.string().min(1, "Date of Birth is required"),
+            dateOfBirth: z.date().optional(),
             email: z
                 .string()
                 .email("Invalid email format")
