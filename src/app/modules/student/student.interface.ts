@@ -41,6 +41,7 @@ export type TStudent = {
   guardian: TGuardian;
   localGuardian: TLocalGuardian;
   profileImg?: string;
+  admissionSemester: Types.ObjectId;
   isDeleted: boolean;
 };
 
@@ -49,7 +50,7 @@ export type TStudent = {
 // for creating static
 
 export interface StudentModel extends Model<TStudent> {
-  isUserExists(id: string): Promise<TStudent | null>;  
+  isUserExists(id: string): Promise<TStudent | null>;
 }
 
 
