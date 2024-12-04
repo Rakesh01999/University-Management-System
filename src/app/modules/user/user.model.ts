@@ -57,3 +57,4 @@ userSchema.post('save', function (doc, next) {
 
 
 export const User = model<TUser>('User', userSchema);
+
