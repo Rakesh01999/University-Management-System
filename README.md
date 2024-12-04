@@ -174,5 +174,3 @@ const StudentSchema = z.object({
 This project is licensed under the MIT License. Feel free to use and contribute!
 
 ---
-
-This README serves as a starting point. You can add project-specific details as needed.
