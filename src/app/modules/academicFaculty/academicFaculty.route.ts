@@ -14,7 +14,7 @@ router.post('/create-academic-faculty',
 );
 
 router.get('/:facultyId',
-    AcademicFacultyControllers.createAcademicFaculty,
+    AcademicFacultyControllers.getSingleAcademicFaculty,
 );
 
 router.patch('/:facultyId',
