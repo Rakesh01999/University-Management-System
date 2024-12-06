@@ -163,7 +163,11 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     isDeleted: {
         type: Boolean,
         default: false,
-    }
+    },
+    admissionDepartment: {
+        type: Schema.Types.ObjectId,
+        ref: 'AcademicDepartment',
+    },
 }, {
     toJSON: {
         virtuals: true
