@@ -1,3 +1,3 @@
 ## University-Management-System
 
-### Subhead to add a small description
+### A management system 
