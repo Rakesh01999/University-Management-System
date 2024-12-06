@@ -1,3 +1,5 @@
 ## University-Management-System
 
-### A management system for CRUD op
+### A management system for CRUD operation
+
+**More Details**
