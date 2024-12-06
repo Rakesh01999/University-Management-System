@@ -15,7 +15,6 @@ const userNameSchema = new Schema<TUserName>({
                 console.log(firstNameStr);
                 return firstNameStr === value;
             },
-            
             message: '{VALUE} is not in capitalize format',
         },
     },
