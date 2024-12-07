@@ -1,5 +1,5 @@
 
-export type TErrorSource = {
+export type TErrorSources = {
     path: string | number;
     message: string;
 }[];
