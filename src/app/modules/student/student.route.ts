@@ -18,6 +18,12 @@ router.get('/:studentId',StudentControllers.getSingleStudent);
 
 router.delete('/:studentId',StudentControllers.deleteStudent);
 
+
+router.patch(
+  '/:studentId',
+  validateRequest(updateStudentValidationSchema),
+  StudentControllers.updateStudent);
+
 export const StudentRoutes = router;
 
 
