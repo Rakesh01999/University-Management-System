@@ -4,6 +4,8 @@ import { TErrorSources } from '../interface/error';
 import config from '../config';
 import handleZodError from '../error/handleZodError';
 import handleValidationError from '../error/handleValidationError';
+import handleCastError from '../error/handleCastError';
+import handleDuplicateError from '../error/handleDuplicateError';
 
 
 
@@ -33,6 +35,16 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     const simplifiedError = handleValidationError(err);
     statusCode = simplifiedError?.statusCode;
     errorSources = simplifiedError?.errorSources;
+  } else if (err?.name === 'CastError') {
+    const simplifiedError = handleCastError(err);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
+  } else if (err?.code === 11000) {
+    const simplifiedError = handleDuplicateError(err);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
   }
 
 
@@ -43,7 +55,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     // error: process.env.NODE_ENV === "development" ? err.stack : undefined, // Show stack in development mode
     errorSources,
     // error: err,
-    // err,
+    err,
     stack: config.NODE_ENV === 'development' ? err?.stack : null,
   });
 };
