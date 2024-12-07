@@ -29,7 +29,9 @@ academicDepartmentSchema.pre('save', async function (next) {
     }
 
     next();
-})
+});
+
+
 
 academicDepartmentSchema.pre('findOneAndUpdate', async function (next) {
     const query = this.getQuery();
