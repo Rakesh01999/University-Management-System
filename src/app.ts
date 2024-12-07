@@ -21,6 +21,7 @@ app.use('/api/v1', router);
 const test = (req: Request, res: Response) => {
   res.status(200).send("Success"); // HTTP 200 OK with a message
 };
+
 app.get('/', test);
 
 app.use(globalErrorHandler);

@@ -13,13 +13,14 @@ import { Request, Response, NextFunction } from 'express';
 
 
 const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-  const statusCode = err.status || 500; // Use provided status code or default to 500
+  const statusCode = err.statusCode || 500; // Use provided status code or default to 500
   const message = err.message || "Something went wrong!";
 
   res.status(statusCode).json({
     success: false,
     message,
-    error: process.env.NODE_ENV === "development" ? err.stack : undefined, // Show stack in development mode
+    // error: process.env.NODE_ENV === "development" ? err.stack : undefined, // Show stack in development mode
+    error:err,
   });
 };
 
