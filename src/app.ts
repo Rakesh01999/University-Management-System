@@ -18,8 +18,10 @@ app.use(cors());
 app.use('/api/v1', router);
 
 // Controller for root route
-const test = (req: Request, res: Response) => {
+const test = async(req: Request, res: Response) => {
+  // Promise.reject();
   res.status(200).send("Success"); // HTTP 200 OK with a message
+
 };
 
 app.get('/', test);
