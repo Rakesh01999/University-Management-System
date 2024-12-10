@@ -8,41 +8,41 @@ import AppError from '../../error/AppError';
 
 const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
-    const queryObj = { ...query };  // coppy 
+    // const queryObj = { ...query };  // coppy 
 
     // { email: {$regex: query.searchTerm, $option: i}}
     // { presentAddress: {$regex: query.searchTerm, $option: i}}
     // { 'name.firstname': {$regex: query.searchTerm, $option: i}}
 
-    const studentSearchableFields = ['email', 'name.firstName', 'presentAddress'];
-    let searchTerm = '';
+    // const studentSearchableFields = ['email', 'name.firstName', 'presentAddress'];
+    // let searchTerm = '';
 
-    if (query?.searchTerm) {
-        searchTerm = query?.searchTerm as string;
-    }
+    // if (query?.searchTerm) {
+    //     searchTerm = query?.searchTerm as string;
+    // }
 
-    const searchQuery = Student.find({
-        $or: studentSearchableFields.map(
-            (field) => ({
-                [field]: { $regex: searchTerm, $options: 'i' },
-            })
-        ),
-    });
+    // const searchQuery = Student.find({
+    //     $or: studentSearchableFields.map(
+    //         (field) => ({
+    //             [field]: { $regex: searchTerm, $options: 'i' },
+    //         })
+    //     ),
+    // });
 
-    // filtering
-    const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields']
+    // // filtering
+    // const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields']
 
-    excludeFields.forEach((el) => delete queryObj[el]);
+    // excludeFields.forEach((el) => delete queryObj[el]);
 
 
-    const filterQuery = searchQuery.find(queryObj)
-        .populate('admissionSemester')
-        .populate({
-            path: 'academicDepartment',
-            populate: {
-                path: 'academicFaculty',
-            },
-        });
+    // const filterQuery = searchQuery.find(queryObj)
+    //     .populate('admissionSemester')
+    //     .populate({
+    //         path: 'academicDepartment',
+    //         populate: {
+    //             path: 'academicFaculty',
+    //         },
+    //     });
 
 
     let sort = '-createdAt';
