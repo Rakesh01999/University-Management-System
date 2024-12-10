@@ -5,6 +5,8 @@ import { User } from '../user/user.model';
 import { TStudent } from './student.interface';
 import { Student } from './student.model';
 import AppError from '../../error/AppError';
+import QueryBuilder from '../../builder/QueryBuilder';
+import { studentSearchableFields } from './student.constant';
 
 const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
@@ -14,7 +16,6 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
     // { presentAddress: {$regex: query.searchTerm, $option: i}}
     // { 'name.firstname': {$regex: query.searchTerm, $option: i}}
 
-    // const studentSearchableFields = ['email', 'name.firstName', 'presentAddress'];
     // let searchTerm = '';
 
     // if (query?.searchTerm) {
@@ -45,47 +46,54 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
     //     });
 
 
-    let sort = '-createdAt';
+    // let sort = '-createdAt';
 
-    if (query.sort) {
-        sort = query.sort as string;
-    }
-
-
-    const sortQuery = filterQuery.sort(sort);
-
-    let page = 1;
-    let limit = 1;
-    let skip = 0;
+    // if (query.sort) {
+    //     sort = query.sort as string;
+    // }
 
 
-    if (query.limit) {
-        limit = Number(query.limit);
-    }
+    // const sortQuery = filterQuery.sort(sort);
 
-    if (query.page) {
-        page = Number(query.page);
-        skip = (page - 1) * limit;
-    }
+    // let page = 1;
+    // let limit = 1;
+    // let skip = 0;
 
-    const paginateQuery = sortQuery.skip(skip);
-    const limitQuery = paginateQuery.limit(limit);
+
+    // if (query.limit) {
+    //     limit = Number(query.limit);
+    // }
+
+    // if (query.page) {
+    //     page = Number(query.page);
+    //     skip = (page - 1) * limit;
+    // }
+
+    // const paginateQuery = sortQuery.skip(skip);
+    // const limitQuery = paginateQuery.limit(limit);
 
 
     // field limiting
-    let fields = '-__v';
+    // let fields = '-__v';
 
     // fields: 'name,email'
     // fields: 'name email'
 
-    if (query.fields) {
-        fields = (query.fields as string).split(',').join(' ');
-        console.log({ fields });
-    }
+    // if (query.fields) {
+    //     fields = (query.fields as string).split(',').join(' ');
+    //     console.log({ fields });
+    // }
 
-    const fieldQuery = limitQuery.select(fields);
+    // const fieldQuery = limitQuery.select(fields);
 
-    return fieldQuery;
+    // return fieldQuery;
+
+
+    const studentQuery = new QueryBuilder(Student.find(), query)
+    .search(studentSearchableFields).filter().sort().paginate().fields();
+
+    const result  =await studentQuery.modelQuery ;
+    return result ;
 };
 
 const getSingleStudentFromDB = async (id: string) => {

@@ -54,5 +54,12 @@ class QueryBuilder<T> {
         return this;
     }
 
-    
+    fields() {
+        const fields = (this?.query?.fields as string)?.split(',')?.join(' ') || '-__v';
+
+        this.modelQuery = this.modelQuery.select(fields);
+        return this; 
+    }
 }
+
+export default QueryBuilder ;
