@@ -8,8 +8,8 @@ import AppError from '../../error/AppError';
 
 const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
-    // console.log('base query', query);
     const queryObj = { ...query };  // coppy 
+
     // { email: {$regex: query.searchTerm, $option: i}}
     // { presentAddress: {$regex: query.searchTerm, $option: i}}
     // { 'name.firstname': {$regex: query.searchTerm, $option: i}}
@@ -30,10 +30,11 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
     });
 
     // filtering
-    const excludeFields = ['searchTerm', 'sort', 'limit']
+    const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields']
 
     excludeFields.forEach((el) => delete queryObj[el]);
-    console.log({ query, queryObj });
+
+    console.log({ query }, { queryObj });
 
     const filterQuery = searchQuery.find(queryObj)
         .populate('admissionSemester')
@@ -54,16 +55,38 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
     const sortQuery = filterQuery.sort(sort);
 
+    let page = 1;
     let limit = 1;
+    let skip = 0;
+
+
     if (query.limit) {
-        limit = query.limit;
+        limit = Number(query.limit);
     }
 
-    const limitQuery = await sortQuery.limit(limit);
+    if (query.page) {
+        page = Number(query.page);
+        skip = (page - 1) * limit;
+    }
 
-    // console.log(limit);
-    // console.log(limitQuery);
-    return limitQuery;
+    const paginateQuery = sortQuery.skip(skip);
+    const limitQuery = paginateQuery.limit(limit);
+
+
+    // field limiting
+    let fields = '-__v';
+
+    // fields: 'name,email'
+    // fields: 'name email'
+
+    if (query.fields) {
+        fields = (query.fields as string).split(',').join(' ');
+        console.log({ fields });
+    }
+
+    const fieldQuery = limitQuery.select(fields);
+
+    return fieldQuery;
 };
 
 const getSingleStudentFromDB = async (id: string) => {
