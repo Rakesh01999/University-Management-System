@@ -23,4 +23,4 @@ export interface UserModel extends Model<TUser> {
     ): boolean;
 }
 
-// export type TUserRole = keyof typeof USER_ROLE;
+export type TUserRole = keyof typeof USER_ROLE;
