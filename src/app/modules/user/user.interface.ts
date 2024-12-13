@@ -1,5 +1,6 @@
+import { Model } from "mongoose";
 
-export type IUser = {
+export interface IUser {
     id: string;
     password: string;
     needsPasswordChange: boolean;
