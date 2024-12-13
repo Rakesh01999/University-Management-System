@@ -11,5 +11,5 @@ export interface IUser {
 
 export interface UserModel extends Model<IUser> {
     // myStaticMethod(): number ;
-    isUserExist(id: string): Promise<IUser>;
+    isUserExistsByCustomId(id: string): Promise<IUser>;
 }
