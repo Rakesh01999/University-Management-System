@@ -1,5 +1,5 @@
 
-export type TUser = {
+export type IUser = {
     id: string;
     password: string;
     needsPasswordChange: boolean;
@@ -8,3 +8,7 @@ export type TUser = {
     isDeleted: boolean;
 };
 
+export interface UserModel extends Model<IUser> {
+    // myStaticMethod(): number ;
+    isUserExist(id: string): Promise<IUser>;
+}
