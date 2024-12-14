@@ -14,6 +14,7 @@ const loginUser = async (payload: TLoginUser) => {
   // checking if the user is exist
   const user = await User.isUserExistsByCustomId(payload.id);
 
+  console.log(user);
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
   }
