@@ -4,6 +4,6 @@
 
 **A project for general and advanced backend operation**
 
-#### Backend focused
+#### Backend focused project
 
 **Bug fixed**
