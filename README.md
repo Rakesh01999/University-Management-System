@@ -7,3 +7,4 @@
 #### Backend focused project
 
 **Bug fixed**
+**Refactoring auth and add validations more validations**
